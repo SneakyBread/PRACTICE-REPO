@@ -59,6 +59,7 @@
         <div class="card">
           <h3 class="card-header">Result</h3>
           <div class="card-body">
+            <div class = "calc-result-input">
             <h1 id="first-number"></h1>
             <h1 id="operator"></h1>
             <h1 id="second-number"></h1>
@@ -69,6 +70,7 @@
       </div>
     </div>
   </div>
+  </div>
 
 <script type="text/javascript">
 
@@ -76,7 +78,75 @@ $(document).ready(function() {
 
 // Your code here...
 
+num1 = '';
+num2 = '';
+operator = '';
+result = '';
 
+
+$(document).ready(function() {
+  $('button').on('click', function(e) {
+     var btn = e.target.innerHTML;
+    if (btn >= '0' && btn <= '9') {
+      handleNumber(btn);
+    } else {
+      handleOperator(btn);
+    }
+    });
+  });
+    
+
+function handleNumber(num) {
+  if (num1 === '') {
+    num1 = num;
+  } else {
+    num2 = num;
+  }
+  displayButton(num);
+}
+
+function handleOperator(oper) {
+  if (operator === '') {
+    operator = oper;
+  } else {
+      handleResult();
+      operator = oper;
+    }
+  }
+
+function handleResult() {
+  switch (operator) {
+    case '+' : 
+    result = +num1 + +num2;
+    displayButton(result);
+    break;
+    case '-' :
+    result = +num1 - +num2;
+    displayButton(result);
+    break;
+    case '*' :
+    result = +num1 * +num2;
+    displayButton(result);
+    break;
+    case '/' :
+    result = +num1 / +num2;
+    displayButton(result);
+    break;
+    case '^':
+    result = +num1 ^ +num2;
+    displayButton(result);
+  }
+updateVariables();
+}
+
+function displayButton(btn) {
+  $('.calc-result-input').text(btn);
+}
+
+function updateVariables() {
+  num1 = result;
+  num2 ='';
+}
 });
 
 </script>
